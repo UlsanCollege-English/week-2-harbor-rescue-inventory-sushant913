@@ -1,4 +1,3 @@
-
 """Week 2 starter code for Harbor Rescue Inventory."""
 
 from __future__ import annotations
@@ -9,7 +8,9 @@ def mission_snapshot(items: list[object]) -> tuple[object | None, object | None]
 
     Return (None, None) if the list is empty.
     """
-    raise NotImplementedError
+    if len(items) == 0:
+        return (None, None)
+    return (items[0], items[-1])
 
 
 def cargo_window(items: list[object], start: int, size: int) -> list[object]:
@@ -17,7 +18,9 @@ def cargo_window(items: list[object], start: int, size: int) -> list[object]:
 
     Return an empty list if ``start`` is out of range or if ``size <= 0``.
     """
-    raise NotImplementedError
+    if start < 0 or start >= len(items) or size <= 0:
+        return []
+    return items[start:start + size]
 
 
 def first_supply_index(items: list[object], target: object) -> int:
@@ -26,7 +29,10 @@ def first_supply_index(items: list[object], target: object) -> int:
     Return -1 if the target is not found.
     Do not use ``items.index(...)`` for this challenge.
     """
-    raise NotImplementedError
+    for i in range(len(items)):
+        if items[i] == target:
+            return i
+    return -1
 
 
 def supply_report(items: list[object], target: object) -> tuple[int, int]:
@@ -34,7 +40,16 @@ def supply_report(items: list[object], target: object) -> tuple[int, int]:
 
     Return (0, -1) if the target does not appear.
     """
-    raise NotImplementedError
+    count = 0
+    first_index = -1
+
+    for i in range(len(items)):
+        if items[i] == target:
+            count += 1
+            if first_index == -1:
+                first_index = i
+
+    return (count, first_index)
 
 
 def priority_load(items: list[object], urgent_item: object) -> list[object]:
@@ -43,4 +58,4 @@ def priority_load(items: list[object], urgent_item: object) -> list[object]:
     Do not mutate the original input list.
     This is a stretch challenge.
     """
-    raise NotImplementedError
+    return [urgent_item] + items
